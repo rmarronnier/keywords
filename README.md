@@ -1,4 +1,4 @@
-# rake
+# Keywords extraction
 
 TODO: Write a description here
 
@@ -9,7 +9,7 @@ TODO: Write a description here
    ```yaml
    dependencies:
      rake:
-       github: your-github-user/rake
+       github: your-github-user/keywords
    ```
 
 2. Run `shards install`
@@ -17,7 +17,7 @@ TODO: Write a description here
 ## Usage
 
 ```crystal
-require "rake"
+require "cadmium_keywords"
 ```
 
 TODO: Write usage instructions here
