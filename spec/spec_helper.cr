@@ -1,5 +1,13 @@
 require "spec"
-require "../src/rake"
+require "../src/keywords"
+
+TEXTTT = "Nuclear fusion is a reaction in which two or more atomic nuclei are combined to form one or more different atomic nuclei and subatomic particles (neutrons or protons). The difference in mass between the reactants and products is manifested as either the release or the absorption of energy. This difference in mass arises due to the difference in atomic binding energy between the nuclei before and after the reaction. Fusion is the process that powers active or main sequence stars and other high-magnitude stars, where large amounts of energy are released.
+
+A fusion process that produces nuclei lighter than iron-56 or nickel-62 will generally release energy. These elements have relatively small mass per nucleon and large binding energy per nucleon. Fusion of nuclei lighter than these releases energy (an exothermic process), while fusion of heavier nuclei results in energy retained by the product nucleons, and the resulting reaction is endothermic. The opposite is true for the reverse process, nuclear fission. This means that the lighter elements, such as hydrogen and helium, are in general more fusible; while the heavier elements, such as uranium, thorium and plutonium, are more fissionable. The extreme astrophysical event of a supernova can produce enough energy to fuse nuclei into elements heavier than iron.
+
+In 1920, Arthur Eddington suggested hydrogen-helium fusion could be the primary source of stellar energy. Quantum tunneling was discovered by Friedrich Hund in 1929, and shortly afterwards Robert Atkinson and Fritz Houtermans used the measured masses of light elements to show that large amounts of energy could be released by fusing small nuclei. Building on the early experiments in nuclear transmutation by Ernest Rutherford, laboratory fusion of hydrogen isotopes was accomplished by Mark Oliphant in 1932. In the remainder of that decade, the theory of the main cycle of nuclear fusion in stars was worked out by Hans Bethe. Research into fusion for military purposes began in the early 1940s as part of the Manhattan Project. Fusion was accomplished in 1951 with the Greenhouse Item nuclear test. Nuclear fusion on a large scale in an explosion was first carried out on 1 November 1952, in the Ivy Mike hydrogen bomb test.
+
+Research into developing controlled fusion inside fusion reactors has been ongoing since the 1940s, but the technology is still in its development phase."
 
 TEXT = "I don't think there's much reading material because it's largely based on opinionated philosophy. So it's definitely not a technical reason.
 

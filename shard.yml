@@ -11,6 +11,8 @@ dependencies:
     github: cadmiumcr/tokenizer
   cadmium_util:
     github: cadmiumcr/utilities
+  num:
+    github: crystal-data/num.cr
 
 development_dependencies:
   ameba:

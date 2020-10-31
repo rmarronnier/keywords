@@ -30,7 +30,7 @@ module Cadmium
       # phrase_tokenizer : Cadmium::Tokenizer::Sentence = Cadmium::Tokenizer::Sentence.new
       # include Cadmium::Tokenizer::StopWords
       NUMBER_REGEX     = /^-*[0-9,\.]+$/
-      STOP_WORDS       = File.read("#{__DIR__}/en.txt").split("\n")[..1000] # .to_set
+      STOP_WORDS       = File.read("#{__DIR__}/en.txt").split("\n") # .to_set
       STOP_WORDS_REGEX = /#{STOP_WORDS.to_a.map { |w| "\\b#{w}(?![\\w-])" }.join("|")}/i
       property options = {min_phrase_length: 1, max_phrase_length: 2}
       property word_tokenizer : Cadmium::Tokenizer::Base # ::Pragmatic.new(numbers: :none)
@@ -44,10 +44,19 @@ module Cadmium
         /#{words.to_a.map { |w| "\\b#{w}(?![\\w-])" }.join("|")}/i
       end
 
+      private def phrase_delimiter(word)
+        return "****" if STOP_WORDS.includes?(word)
+        word
+      end
+
       def phrases_tokenizer(sentences : Array(String))
-        sentences.map { |sentence|
-          sentence.downcase.split(STOP_WORDS_REGEX).map { |element| @word_tokenizer.tokenize(element).join(" ") }.select { |phrase| acceptable?(phrase) } # .select { |phrase| phrase.size > 5 } #
-        }.flatten
+        sentences.map { |sentence| @word_tokenizer.tokenize(sentence.downcase).map { |word| phrase_delimiter(word) }.join(" ").split("****").select { |phrase| acceptable?(phrase) } }.flatten
+
+        # sentences.map { |sentence|
+        #   sentence.downcase.split(STOP_WORDS_REGEX)
+
+        #   .map { |element| @word_tokenizer.tokenize(element).join(" ") }.select { |phrase| acceptable?(phrase) } # .select { |phrase| phrase.size > 5 } #
+        # }.flatten
       end
 
       def word_scores(sentences : Array(String))
@@ -55,7 +64,7 @@ module Cadmium
         degrees = Hash(String, Int32).new
 
         phrases_tokenizer(sentences).each do |phrase|
-          words = @word_tokenizer.tokenize(phrase).reject { |word| word =~ NUMBER_REGEX }
+          words = @word_tokenizer.tokenize(phrase) # .reject { |word| word =~ NUMBER_REGEX }
           # words = Cadmium::Tokenizer::Aggressive.new.tokenize(phrase)
           words.each do |word|
             frequencies[word] = 1 unless frequencies.has_key?(word)
@@ -76,7 +85,7 @@ module Cadmium
         scores
       end
 
-      def keywords(text : String)
+      def extract(text : String)
         keywords = Hash(String, Float32).new
         sentences = Cadmium::Tokenizer::Sentence.new.tokenize(text)
         phrases = phrases_tokenizer(sentences)
@@ -86,9 +95,9 @@ module Cadmium
           #   next if phrases.count(phrase) < @options[:min_frequency]
           # end
           words = @word_tokenizer.tokenize(phrase).reject { |word| word.matches?(NUMBER_REGEX) }
-          keywords[phrase] = words.map { |word| word_scores[word] }.sum
+          keywords[phrase.strip] = words.map { |word| word_scores[word] }.sum
         end
-        keywords.to_a.sort_by { |key, value| key }.to_h.keys.reverse
+        keywords.to_a.sort_by { |_, value| value }.to_h.keys.reverse
         # keywords.select { |word, score|
         #   score >= @options[:min_score]
         # }.sort_by(&:last).reverse.to_h
