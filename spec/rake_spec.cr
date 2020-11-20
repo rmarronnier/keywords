@@ -16,7 +16,7 @@ describe Cadmium::Keywords::Rake do
   #   subject.keywords(OSDIFOPISDF).should eq(true)
   # end
   it "QQQdfgsdsd" do
-    subject.extract(TEXTTT).should eq(true)
+    subject.extract(TEXTTT, STOP_WORDS).should eq(true)
   end
   # it "worksm" do
   #   Cadmium::Rake.get_keywords(TEXT).should eq(true)
